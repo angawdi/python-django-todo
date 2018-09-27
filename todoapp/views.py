@@ -42,11 +42,15 @@ def index(request):
 
 def delete(request, todo_id):
     # Delete a todo
-    return HttpResponse("Delete this")
+    Todo.objects.get(id=todo_id).delete()
+    return redirect('index')
 
 def done(request, todo_id):
     # will mark a todo as complete
-    return HttpResponse('Mark done')
+    item = Todo.objects.get(id=todo_id)
+    item.is_complete = True
+    item.save()
+    return redirect('index')
 
 # Auth-related routes
 def signup(request):
