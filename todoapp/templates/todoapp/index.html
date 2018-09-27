@@ -1,12 +1,19 @@
 {% extends 'todoapp/base.html' %}
 
 {% block content%}
-<h1>Todo List</h1>
+<h1>
+	{% if user.is_authenticated %}
+		{{ user.username }}'s Todo List!
+	{% else %}
+		Hello, anonymous Todo List User!
+	{% endif %}
+</h1>
 
 {% if error %}
 	<p class="text-danger">{{ error }}</p>
 {% endif %}
 
+{% if user.is_authenticated %}
 <form method="POST" action="/">
 	{% csrf_token %}
 	<div class="form-group">
@@ -25,7 +32,7 @@
 		</div>
 		<input type="submit" value="Add Todo" class="btn btn-info">
 </form>
-
+{% endif %}
 
 <div class="row">
 	<div class="col-xs-12">
@@ -35,8 +42,10 @@
 				<tr>
 					<th>Item</th>
 					<th>Name</th>
+					{% if user.is_authenticated %}
 					<th>Done?</th>
 					<th>Remove</th>
+					{% endif%}
 				</tr>
 			</thead>
 			<tbody>
@@ -44,6 +53,7 @@
 					<tr>
 						<td>{{ t.text }}</td>
 						<td>{{ t.user }}</td>
+						{% if user.is_authenticated %}
 						<td>
 							{% if t.is_complete %}
 								<i class="glyphicon glyphicon-ok"></i>
@@ -54,6 +64,7 @@
 						<td>
 							<a href="{{ t.id }}/delete/" class="btn btn-danger">Remove</a>
 						</td>
+						{% endif %}
 					</tr>
 				{% endfor %}
 			</tbody>
