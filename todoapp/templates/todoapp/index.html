@@ -1,6 +1,39 @@
 {% extends 'todoapp/base.html' %}
 
 {% block content%}
-<h1>Home Page</h1>
+<h1>Todo List</h1>
 
-{% endblock %}
+<div class="row">
+	<div class="col-xs-12">
+		<h2>The list of doing</h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Item</th>
+					<th>Name</th>
+					<th>Done?</th>
+					<th>Remove</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for t in todos %}
+					<tr>
+						<td>{{ t.text }}</td>
+						<td>{{ t.user }}</td>
+						<td>
+							{% if t.is_complete %}
+								<i class="glyphicon glyphicon-ok"></i>
+							{% else %}
+								<a href="{{ i.id }}/done/">Mark Done</a>
+							{% endif %}
+						</td>
+						<td>
+							<a href="{{ t.id }}/delete/">Remove</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+<!-- 
+{% endblock %} -->

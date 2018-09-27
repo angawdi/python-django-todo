@@ -2,12 +2,20 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .models import Todo
 
 # Main routes
 def index(request):
     if request.method == "GET":
         # Display all the todos:
-        return render(request, 'todoapp/index.html')
+        todos = Todo.objects.all().order_by('text')
+        users = User.objects.all()
+        return render(request, 
+            'todoapp/index.html',
+            {
+                'todos': todos,
+                'users': users
+            })
     elif request.method == "POST":
         # Add a new todo
         return HttpResponse('index POST')
