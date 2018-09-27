@@ -22,10 +22,16 @@ def done():
 
 # Auth-related routes
 def signup(request):
-    return HttpResponse('signup')
+    if request.method == 'GET':
+        return render(request, 'todoapp/signup.html')
+    elif request.method == 'POST':
+        return HttpResponse('POST to /signup')
 
 def login(request):
-    return HttpResponse('login')
+    if request.method == 'GET':
+        return render(request, 'todoapp/login.html')
+    elif request.method == 'POST':
+        return HttpResponse('posignup')
 
 def logout(request):
     return HttpResponse('logout')
