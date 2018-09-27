@@ -7,7 +7,7 @@ from django.http import HttpResponse
 def index(request):
     if request.method == "GET":
         # Display all the todos:
-        return HttpResponse('index GET')
+        return render(request, 'todoapp/index.html')
     elif request.method == "POST":
         # Add a new todo
         return HttpResponse('index POST')
